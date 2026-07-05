@@ -5,7 +5,6 @@
     --border: rgba(20,18,15,0.12);
     --accent: #ff3b1f;
   }
-
   * { box-sizing: border-box; }
 
   body {
