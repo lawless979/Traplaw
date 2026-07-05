@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TR^PLAW — Streetwear Drops</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="marquee-bar">FREE SHIPPING ON ORDERS OVER NGN 100,000 · DROP 01 OUT NOW</div>
+
+  <header>
+    <div class="header-inner">
+      <nav class="main-nav">
+        <a href="#shop">Shop</a>
+        <a href="#lookbook">Lookbook</a>
+        <a href="#about">About</a>
+      </nav>
+      <a href="#" class="logo">
+        <span class="mark">TR<span class="caret">^</span>PLAW</span>
+        <span class="tagline">Sturdy to the Law🅿️</span>
+      </a>
+      <div class="header-actions">
+        <button>Search</button>
+        <button id="bagBtn">Bag (<span id="bagCount">0</span>)</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Drop 01 / Summer '26</p>
+      <h1 class="hero-title">TR^PLAW</h1>
+      <p class="hero-copy">Bold streetwear built for pressure. Tees, jorts, and joggerz — made in Lagos, shipped worldwide.</p>
+      <div class="hero-ctas">
+        <a href="#shop" class="btn-solid">Shop the drop</a>
+        <a href="#lookbook" class="btn-outline">Lookbook</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-strip">
+    <div class="marquee-track" id="marqueeTrack"></div>
+  </div>
+
+  <section id="shop">
+    <div class="shop-header">
+      <div>
+        <p class="label">Collection</p>
+        <h2>All Pieces</h2>
+      </div>
+      <div class="filters">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="tops">Tops</button>
+        <button data-filter="bottoms">Bottoms</button>
+        <button data-filter="accessories">Accessories</button>
+      </div>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </section>
+
+  <section id="lookbook">
+    <div style="max-width:1280px;margin:0 auto;padding:64px 20px 96px;border-top:1px solid var(--border);">
+      <p style="font-size:12px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);">Lookbook</p>
+      <h2 style="font-size:clamp(32px,4vw,48px);font-weight:900;letter-spacing:-0.03em;margin:8px 0 40px;">Field notes from the drop.</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;">
+        <div style="aspect-ratio:3/4;background:linear-gradient(0deg,#4b1e18,#e8934a);position:relative;">
+          <div style="position:absolute;bottom:20px;left:20px;right:20px;display:flex;justify-content:space-between;color:#fff;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;mix-blend-mode:difference;"><span>01</span><span>Patchwork Denim</span></div>
+        </div>
+        <div style="aspect-ratio:3/4;background:linear-gradient(120deg,#1e3a1e,#5fae5f);position:relative;">
+          <div style="position:absolute;bottom:20px;left:20px;right:20px;display:flex;justify-content:space-between;color:#fff;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;mix-blend-mode:difference;"><span>02</span><span>Militant</span></div>
+        </div>
+        <div style="aspect-ratio:3/4;background:linear-gradient(240deg,#1e3a4b,#4ab0e8);position:relative;">
+          <div style="position:absolute;bottom:20px;left:20px;right:20px;display:flex;justify-content:space-between;color:#fff;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;mix-blend-mode:difference;"><span>03</span><span>Coming Soon</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="background:var(--fg);color:var(--bg);">
+    <div style="max-width:1280px;margin:0 auto;padding:80px 20px;display:grid;grid-template-columns:1fr;gap:40px;">
+      <h2 style="font-size:clamp(40px,7vw,72px);font-weight:900;letter-spacing:-0.03em;line-height:0.95;margin:0;">Not fashion.<br/>A uniform.</h2>
+      <div style="max-width:420px;opacity:0.75;font-size:15px;line-height:1.6;">
+        <p>TR^PLAW was born from the streets but designed for those who refuse to be defined by them. Every collection represents pressure, growth, and survival.</p>
+        <p style="margin-top:16px;">Join the list. Get first look at Drop 04.</p>
+        <form style="margin-top:24px;display:flex;border:1px solid rgba(255,255,255,0.3);" onsubmit="return false;">
+          <input type="email" placeholder="your@email.com" style="flex:1;background:transparent;border:none;padding:14px 16px;color:inherit;font-size:14px;outline:none;" />
+          <button style="padding:0 20px;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;background:var(--bg);color:var(--fg);">Join</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div>© 2026 TR^PLAW</div>
+      <div class="links">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Contact</a>
+        <a href="#">Shipping</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cart Drawer -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="drawer" id="drawer" aria-label="Shopping bag">
+    <div class="drawer-header">
+      <h2>Your Bag</h2>
+      <button class="drawer-close" id="drawerClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-items" id="drawerItems"></div>
+    <div class="drawer-footer">
+      <div class="subtotal-row">
+        <span>Subtotal</span>
+        <span class="amount" id="subtotal">NGN 0</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  // ---- Product data ----
+  const products = [
+    { id: 'denim-set', name: 'TRAPLAW PATCHWORK DENIM SET', price: 80000, category: 'bottoms', badge: 'New', art: 'TL', comingSoon: false, bg: 'linear-gradient(60deg,#e8dfc8,#5a7d6b)' },
+    { id: 'jorts', name: 'TL JORTS', price: 40000, category: 'bottoms', badge: null, art: 'TL JORTS', comingSoon: false, bg: 'linear-gradient(47deg, #e0c9a6, #4f8f6b)' },
+    { id: 'tee', name: 'TRAPLAW ESSENTIAL TEE', price: 25000, category: 'tops', badge: 'Essentials', art: 'TRAPLAW ESSENTIAL TEE', comingSoon: false, bg: 'linear-gradient(94deg, #e8dcc0, #3f8fae)' },
+    { id: 'militant-1', name: 'MILITANT', price: null, category: 'tops', badge: 'Coming Soon', art: 'MILITANT', comingSoon: true, bg: 'linear-gradient(141deg, #cfd0e8, #6f5aa0)' },
+    { id: 'militant-2', name: 'MILITANT', price: null, category: 'accessories', badge: 'Coming Soon', art: 'MILITANT', comingSoon: true, bg: 'linear-gradient(188deg, #cfe8df, #a05a7a)' },
+    { id: 'militant-3', name: 'MILITANT', price: null, category: 'accessories', badge: 'Coming Soon', art: 'MILITANT', comingSoon: true, bg: 'linear-gradient(235deg, #cfe0e8, #ae6b3f)' },
+    { id: 'coming-1', name: 'COMING SOON', price: null, category: 'tops', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(282deg, #e8d0cf, #5a8a3f)' },
+    { id: 'coming-2', name: 'COMING SOON', price: null, category: 'bottoms', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(329deg, #d5cfe8, #5a8f8a)' },
+    { id: 'coming-3', name: 'COMING SOON', price: null, category: 'accessories', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(16deg, #d8d0e8, #5a8fae)' },
+    { id: 'coming-4', name: 'COMING SOON', price: null, category: 'tops', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(63deg, #e8d5cf, #6b5aa0)' },
+    { id: 'coming-5', name: 'COMING SOON', price: null, category: 'bottoms', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(110deg, #e0dcc0, #ae5a7a)' },
+    { id: 'coming-6', name: 'COMING SOON', price: null, category: 'accessories', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(157deg, #e8dcc0, #ae7a3f)' },
+    { id: 'coming-7', name: 'COMING SOON', price: null, category: 'tops', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(204deg, #cfe0d0, #8f6bae)' },
+    { id: 'coming-8', name: 'COMING SOON', price: null, category: 'bottoms', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(251deg, #cfe8de, #8f5a5a)' },
+    { id: 'coming-9', name: 'COMING SOON', price: null, category: 'accessories', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(88deg, #d5c8a6, #4f8f6b)' },
+    { id: 'coming-10', name: 'COMING SOON', price: null, category: 'tops', badge: 'Coming Soon', art: 'COMING SOON', comingSoon: true, bg: 'linear-gradient(134deg, #a6d8c8, #6b5aa0)' },
+  ];
+
+  // ---- Cart state ----
+  let cart = {}; // { productId: qty }
+
+  function fmtPrice(n) {
+    if (n == null) return 'NGN —';
+    return 'NGN ' + n.toLocaleString('en-NG');
+  }
+
+  function cartCount() {
+    return Object.values(cart).reduce((a, b) => a + b, 0);
+  }
+
+  function cartSubtotal() {
+    return Object.entries(cart).reduce((sum, [id, qty]) => {
+      const p = products.find(x => x.id === id);
+      return sum + (p && p.price ? p.price * qty : 0);
+    }, 0);
+  }
+
+  function addToCart(id) {
+    cart[id] = (cart[id] || 0) + 1;
+    renderCartCount();
+    renderDrawer();
+    showToast('Added to bag');
+  }
+
+  function updateQty(id, delta) {
+    if (!cart[id]) return;
+    cart[id] += delta;
+    if (cart[id] <= 0) delete cart[id];
+    renderCartCount();
+    renderDrawer();
+  }
+
+  function removeFromCart(id) {
+    delete cart[id];
+    renderCartCount();
+    renderDrawer();
+  }
+
+  function renderCartCount() {
+    document.getElementById('bagCount').textContent = cartCount();
+  }
+
+  function renderDrawer() {
+    const container = document.getElementById('drawerItems');
+    const entries = Object.entries(cart);
+    if (entries.length === 0) {
+      container.innerHTML = '<div class="drawer-empty">Your bag is empty.<br/>Go find something worth wearing.</div>';
+    } else {
+      container.innerHTML = entries.map(([id, qty]) => {
+        const p = products.find(x => x.id === id);
+        if (!p) return '';
+        return `
+          <div class="drawer-item">
+            <div class="thumb" style="background:${p.bg}; opacity:0.9;">${p.art}</div>
+            <div class="info">
+              <div>
+                <div class="name">${p.name}</div>
+                <div class="price">${fmtPrice(p.price)}</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="qty-row">
+                  <button onclick="updateQty('${id}', -1)" aria-label="Decrease quantity">-</button>
+                  <span class="qty-val">${qty}</span>
+                  <button onclick="updateQty('${id}', 1)" aria-label="Increase quantity">+</button>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart('${id}')">Remove</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    document.getElementById('subtotal').textContent = fmtPrice(cartSubtotal());
+    document.getElementById('checkoutBtn').disabled = entries.length === 0;
+  }
+
+  function openDrawer() {
+    document.getElementById('drawer').classList.add('open');
+    document.getElementById('overlay').classList.add('open');
+  }
+  function closeDrawer() {
+    document.getElementById('drawer').classList.remove('open');
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+  }
+
+  // ---- Render product grid ----
+  function renderGrid(filter = 'all') {
+    const grid = document.getElementById('productGrid');
+    const list = filter === 'all' ? products : products.filter(p => p.category === filter);
+    grid.innerHTML = list.map(p => `
+      <article class="card" data-id="${p.id}">
+        <div class="card-media">
+          <div class="art" style="background:${p.bg};">${p.art}</div>
+          ${p.badge ? `<span class="tag">${p.badge}</span>` : ''}
+          <button class="add-btn" data-add="${p.id}" ${p.comingSoon ? 'disabled' : ''}>
+            ${p.comingSoon ? 'Notify me' : 'Add to bag'}
+          </button>
+        </div>
+        <h3>${p.name}</h3>
+        <p class="price">${fmtPrice(p.price)}</p>
+      </article>
+    `).join('');
+
+    grid.querySelectorAll('[data-add]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.getAttribute('data-add');
+        const p = products.find(x => x.id === id);
+        if (p.comingSoon) {
+          showToast("We'll notify you on drop");
+          return;
+        }
+        addToCart(id);
+        btn.classList.add('just-added');
+        const originalText = btn.textContent;
+        btn.textContent = 'Added ✓';
+        setTimeout(() => {
+          btn.classList.remove('just-added');
+          btn.textContent = originalText;
+        }, 900);
+      });
+    });
+  }
+
+  // ---- Filters ----
+  document.querySelectorAll('.filters button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid(btn.getAttribute('data-filter'));
+    });
+  });
+
+  // ---- Marquee content ----
+  const marqueeItems = ['TR^PLAW', '◆ STURDY TO THE LAW🅿️', 'Made in Lagos', '◆', 'Ship worldwide', '◆', 'Drop 01', '◆', 'Patchwork Denim Set', '◆'];
+  const track = document.getElementById('marqueeTrack');
+  track.innerHTML = (marqueeItems.concat(marqueeItems)).map(t => `<span>${t}</span>`).join('');
+
+  // ---- Wire up bag button + drawer ----
+  document.getElementById('bagBtn').addEventListener('click', openDrawer);
+  document.getElementById('drawerClose').addEventListener('click', closeDrawer);
+  document.getElementById('overlay').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    showToast('Checkout flow goes here');
+  });
+
+  // ---- Init ----
+  renderGrid();
+  renderDrawer();
+</script>
+
+</body>
+</html>
