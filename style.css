@@ -316,9 +316,15 @@
     padding: 4px 8px;
   }
 
-  .add-btn {
+  .card-action {
     position: absolute;
     bottom: 0; left: 0; right: 0;
+  }
+
+  .add-btn {
+    position: relative;
+    width: 100%;
+    bottom: auto; left: auto; right: auto;
     background: var(--fg);
     color: var(--bg);
     padding: 12px 0;
@@ -328,11 +334,8 @@
     font-weight: 500;
   }
   @media (hover: hover) and (pointer: fine) {
-    .add-btn {
-      transform: translateY(100%);
-      transition: transform 0.25s ease, opacity 0.2s ease;
-    }
-    .card:hover .add-btn { transform: translateY(0); }
+    .card-action { transform: translateY(100%); transition: transform 0.25s ease; }
+    .card:hover .card-action { transform: translateY(0); }
   }
   .add-btn:disabled {
     opacity: 0.5;
@@ -341,6 +344,23 @@
   .add-btn.just-added {
     background: var(--accent);
   }
+
+  .size-picker {
+    display: flex;
+  }
+  .size-chip {
+    flex: 1;
+    background: var(--fg);
+    color: var(--bg);
+    padding: 12px 0;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-left: 1px solid rgba(252,251,248,0.2);
+  }
+  .size-chip:first-child { border-left: none; }
+  .size-chip:hover { background: var(--accent); }
 
   .card h3 {
     font-size: 14px;
