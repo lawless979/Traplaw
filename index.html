@@ -134,9 +134,9 @@
 <script>
   // ---- Product data ----
   const products = [
-    { id: 'denim-set', name: 'TRAPLAW PATCHWORK DENIM SET', price: 80000, category: 'bottoms', badge: 'New', art: 'TL', comingSoon: false, bg: 'linear-gradient(60deg,#e8dfc8,#5a7d6b)' },
-    { id: 'jorts', name: 'TL JORTS', price: 40000, category: 'bottoms', badge: null, art: 'TL JORTS', comingSoon: false, bg: 'linear-gradient(47deg, #e0c9a6, #4f8f6b)' },
-    { id: 'tee', name: 'TRAPLAW ESSENTIAL TEE', price: 25000, category: 'tops', badge: 'Essentials', art: 'TRAPLAW ESSENTIAL TEE', comingSoon: false, bg: 'linear-gradient(94deg, #e8dcc0, #3f8fae)' },
+    { id: 'denim-set', name: 'TRAPLAW PATCHWORK DENIM SET', price: 80000, category: 'bottoms', badge: 'New', art: 'TL', comingSoon: false, sizes: ['S','M','L'], bg: 'linear-gradient(60deg,#e8dfc8,#5a7d6b)' },
+    { id: 'jorts', name: 'TL JORTS', price: 40000, category: 'bottoms', badge: null, art: 'TL JORTS', comingSoon: false, sizes: ['S','M','L'], bg: 'linear-gradient(47deg, #e0c9a6, #4f8f6b)' },
+    { id: 'tee', name: 'TRAPLAW ESSENTIAL TEE', price: 25000, category: 'tops', badge: 'Essentials', art: 'TRAPLAW ESSENTIAL TEE', comingSoon: false, sizes: ['S','M','L'], bg: 'linear-gradient(94deg, #e8dcc0, #3f8fae)' },
     { id: 'militant-1', name: 'MILITANT', price: null, category: 'tops', badge: 'Coming Soon', art: 'MILITANT', comingSoon: true, bg: 'linear-gradient(141deg, #cfd0e8, #6f5aa0)' },
     { id: 'militant-2', name: 'MILITANT', price: null, category: 'accessories', badge: 'Coming Soon', art: 'MILITANT', comingSoon: true, bg: 'linear-gradient(188deg, #cfe8df, #a05a7a)' },
     { id: 'militant-3', name: 'MILITANT', price: null, category: 'accessories', badge: 'Coming Soon', art: 'MILITANT', comingSoon: true, bg: 'linear-gradient(235deg, #cfe0e8, #ae6b3f)' },
@@ -153,7 +153,7 @@
   ];
 
   // ---- Cart state ----
-  let cart = {}; // { productId: qty }
+  let cart = {}; // { 'productId::size': qty }
 
   function fmtPrice(n) {
     if (n == null) return 'NGN —';
@@ -165,29 +165,31 @@
   }
 
   function cartSubtotal() {
-    return Object.entries(cart).reduce((sum, [id, qty]) => {
+    return Object.entries(cart).reduce((sum, [key, qty]) => {
+      const [id] = key.split('::');
       const p = products.find(x => x.id === id);
       return sum + (p && p.price ? p.price * qty : 0);
     }, 0);
   }
 
-  function addToCart(id) {
-    cart[id] = (cart[id] || 0) + 1;
+  function addToCart(id, size) {
+    const key = `${id}::${size}`;
+    cart[key] = (cart[key] || 0) + 1;
     renderCartCount();
     renderDrawer();
-    showToast('Added to bag');
+    showToast(`Added ${size ? size + ' · ' : ''}to bag`);
   }
 
-  function updateQty(id, delta) {
-    if (!cart[id]) return;
-    cart[id] += delta;
-    if (cart[id] <= 0) delete cart[id];
+  function updateQty(key, delta) {
+    if (!cart[key]) return;
+    cart[key] += delta;
+    if (cart[key] <= 0) delete cart[key];
     renderCartCount();
     renderDrawer();
   }
 
-  function removeFromCart(id) {
-    delete cart[id];
+  function removeFromCart(key) {
+    delete cart[key];
     renderCartCount();
     renderDrawer();
   }
@@ -202,7 +204,8 @@
     if (entries.length === 0) {
       container.innerHTML = '<div class="drawer-empty">Your bag is empty.<br/>Go find something worth wearing.</div>';
     } else {
-      container.innerHTML = entries.map(([id, qty]) => {
+      container.innerHTML = entries.map(([key, qty]) => {
+        const [id, size] = key.split('::');
         const p = products.find(x => x.id === id);
         if (!p) return '';
         return `
@@ -211,15 +214,15 @@
             <div class="info">
               <div>
                 <div class="name">${p.name}</div>
-                <div class="price">${fmtPrice(p.price)}</div>
+                <div class="price">${fmtPrice(p.price)}${size ? ' · Size ' + size : ''}</div>
               </div>
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <div class="qty-row">
-                  <button onclick="updateQty('${id}', -1)" aria-label="Decrease quantity">-</button>
+                  <button onclick="updateQty('${key}', -1)" aria-label="Decrease quantity">-</button>
                   <span class="qty-val">${qty}</span>
-                  <button onclick="updateQty('${id}', 1)" aria-label="Increase quantity">+</button>
+                  <button onclick="updateQty('${key}', 1)" aria-label="Increase quantity">+</button>
                 </div>
-                <button class="remove-btn" onclick="removeFromCart('${id}')">Remove</button>
+                <button class="remove-btn" onclick="removeFromCart('${key}')">Remove</button>
               </div>
             </div>
           </div>
@@ -257,9 +260,11 @@
         <div class="card-media">
           <div class="art" style="background:${p.bg};">${p.art}</div>
           ${p.badge ? `<span class="tag">${p.badge}</span>` : ''}
-          <button class="add-btn" data-add="${p.id}" ${p.comingSoon ? 'disabled' : ''}>
-            ${p.comingSoon ? 'Notify me' : 'Add to bag'}
-          </button>
+          <div class="card-action">
+            <button class="add-btn" data-add="${p.id}" ${p.comingSoon ? 'disabled' : ''}>
+              ${p.comingSoon ? 'Notify me' : 'Add to bag'}
+            </button>
+          </div>
         </div>
         <h3>${p.name}</h3>
         <p class="price">${fmtPrice(p.price)}</p>
@@ -275,15 +280,55 @@
           showToast("We'll notify you on drop");
           return;
         }
-        addToCart(id);
-        btn.classList.add('just-added');
-        const originalText = btn.textContent;
-        btn.textContent = 'Added ✓';
+        if (p.sizes && p.sizes.length) {
+          showSizePicker(btn, p);
+        } else {
+          confirmAdd(btn, p.id, null);
+        }
+      });
+    });
+  }
+
+  function showSizePicker(btn, product) {
+    const actionRow = btn.closest('.card-action');
+    actionRow.innerHTML = `
+      <div class="size-picker">
+        ${product.sizes.map(s => `<button class="size-chip" data-size="${s}">${s}</button>`).join('')}
+      </div>
+    `;
+    actionRow.querySelectorAll('.size-chip').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const size = chip.getAttribute('data-size');
+        addToCart(product.id, size);
+        actionRow.innerHTML = `<button class="add-btn just-added" disabled>Added ✓</button>`;
         setTimeout(() => {
-          btn.classList.remove('just-added');
-          btn.textContent = originalText;
+          actionRow.innerHTML = `<button class="add-btn" data-add="${product.id}">Add to bag</button>`;
+          rewireAddButton(actionRow.querySelector('[data-add]'), product);
         }, 900);
       });
+    });
+  }
+
+  function confirmAdd(btn, id, size) {
+    addToCart(id, size);
+    btn.classList.add('just-added');
+    const originalText = btn.textContent;
+    btn.textContent = 'Added ✓';
+    setTimeout(() => {
+      btn.classList.remove('just-added');
+      btn.textContent = originalText;
+    }, 900);
+  }
+
+  function rewireAddButton(btn, product) {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (product.sizes && product.sizes.length) {
+        showSizePicker(btn, product);
+      } else {
+        confirmAdd(btn, product.id, null);
+      }
     });
   }
 
